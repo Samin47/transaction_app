@@ -1,11 +1,11 @@
 # Transaction app
 
 ## Features
-Mock Response API: Simulates transaction responses for testing purposes.
+Mock Response API: Simulates transaction responses for testing purposes. (/mock_response.php)
 
-Payment API: Accepts payment details and stores transaction data.
+Payment API: Accepts payment details and stores transaction data. (/payment.php)
 
-Callback API: Updates transaction status based on callback input.
+Callback API: Updates transaction status based on callback input. (/callback.php)
 
 ## Installation
 
