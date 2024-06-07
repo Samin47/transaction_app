@@ -1,0 +1,83 @@
+1. mock_response.php
+
+	*Successful Transaction:
+
+	Description: Verify that the API responds a successful transaction when X-Mock-Status header is set to 'accepted'.
+	Request: GET request & X-Mock-Status: accepted header.
+	Expected Response:
+		{"status": "accepted"}
+		
+		
+	*Failed Transaction:
+
+	Description: Verify that the API simulates a failed transaction when X-Mock-Status header is set to 'failed'.
+	Request: GET request & X-Mock-Status: failed header.
+	Expected Response:
+		{"status": "failed"}
+		
+ 	
+ 	*Invalid/Missing Header Value:
+ 	Description: Verify that the API returns an error message when an invalid value is provided for X-Mock-Status header.
+	Request: GET request & invalid/missing header value.
+	Expected Response:
+		{"error": "Invalid or missing X-Mock-Status header"}
+		
+2. payment.php
+
+	*Process Successful Payment:
+
+	Description: Verify that the API processes a valid payment request and returns a successful response.
+	Request: POST request to payment.php with valid JSON data (amount and user_id).
+	Expected Response:
+	HTTP status code: 200 OK, Transaction ID and status are provided in the response.
+	Expected response header: Cache-Control: no-store
+		Sample response: 
+		{
+		    "transaction_id": "txn_39b864d499044506aacfdfbf8f16d434",
+		    "status": "accepted"
+		}
+	
+	
+	*Missing Parameters:
+
+	Description: Verify that the API returns an error message when required parameters are missing.
+	Request: POST request to payment.php without providing amount or user_id.
+	Expected Response:
+	HTTP status code: 400 Bad Request
+	with Error message.
+	
+	*Invalid Mock status header:
+
+	Description: Verify that the API returns an error message if mock status header is provided and not in (accepted,failed).
+	Request: POST request to payment.php without invalid mock status header.
+	Expected Response:
+		{
+		    "error": "Invalid mock response format"
+		}
+				
+	
+3. callback.php
+
+	*Update Transaction Status:
+
+	Description: Verify that the API successfully updates the transaction status.
+	Request: POST request to callback.php with valid JSON data containing transaction_id and status.
+	Expected Response:
+		{"message": "Transaction updated successfully"}
+		
+		
+	*Invalid Transaction ID:
+	
+	Description: Verify that the API returns an error message when an invalid transaction ID is provided.
+	Request: POST request to callback.php with an invalid transaction_id.
+	Expected Response:
+	HTTP status code: 400 Bad Request
+	Response :
+	{
+	    "error": "Invalid input: Transaction ID does not exist"
+	}
+	
+
+
+
+
